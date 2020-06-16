@@ -7,7 +7,7 @@ There are two other forks from the original epsgraphics v1.9, but they barely di
 
 Use Version 2.0 if you need a simple JAR swap without having to change your existing code or class derivations (other than for the package provider of the main EpsGraphics2D and EpsDocument classes).
 
-Use Version 2.5 is you'd prefer a more spartan API that removes the clutter of the old-style (and sometimes dangerous) I/O handling in favor of the modern preference towards try-with-resources. This version removes all deprecated legacy functions.
+Use Version 2.5 is you'd prefer a more spartan API that removes the clutter of the old-style (and sometimes dangerous) I/O handling in favor of the modern preference towards try-with-resources. This version removes all deprecated legacy functions and constructors, which also frees us up to further improve the code architecture and library structure.
 
 Use Version 3.0 if you need a module-ready version for Java 9 and beyond. This version will ve targeted for Java 14.
 

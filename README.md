@@ -1,5 +1,5 @@
 # EpsGraphics2D
-The EpsGraphics2D library is purposed towards redirecting screen output to a single page in EPS format, using class inheritance from AWT's Graphics2D canvas-based paint-loop refresh renderer.
+The EpsGraphics2D library is an open source project for Java 8 that redirects screen output to a single page in EPS format using class inheritance from AWT's Graphics2D canvas-based "paintComponent()" screen refresh renderer.
 
 This library is more or less a fork of the original EpsGraphics2D library from James Paul James Mutton (2004), but is a significant enhancement of the final GPL-licensed free version (v1.9) of that library (sometimes incorrectly referred to as version 0.9, due to inconsistencies within the source code). This version makes use of quite a few of the newer Java language features up through Java 8, for safer I/O handling and better decoupling of DSC vs. AWT vs. EPS concepts, amongst other things. A Java 14 module version is forthcoming, and possibly a Kotlin translation as well.
 

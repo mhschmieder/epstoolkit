@@ -26,3 +26,5 @@ Use Version 2.5 is you'd prefer a more spartan API that removes the clutter of t
 Use Version 3.0 if you need a module-ready version for Java 9 and beyond. This version will ve targeted for Java 14.
 
 A Kotlin port is planned, if it ends up being performant. Kotlin can work with AWT; I am not yet sure whether Scala can, but will also provide a Scala API if so.
+
+There is a slight delay in posting this library, as I decided it is best to extract the non EPS specific stuff into a separate library called GraphicsToolkit, and I may extract some of the GUI examples into a GuiToolkit project as well. And though many people prefer to have zero dependencies in projects they adopt, when I do the modularized versions for Java 14 it will be possible to decouple the parts that aren't needed for every project, such as if you are doing server-based EPS handling. The important thing is to enforce as much decoupling as possible; I have been preparing for Java modularization starting with the Java 7 release.

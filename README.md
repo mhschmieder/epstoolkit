@@ -21,12 +21,10 @@ A strong effort was made to minimize the differences between using EPS vs. SVG v
 
 Although many people prefer to have zero dependencies in projects that they adopt, when I do the modularized versions for Java 14 it will be possible to decouple the parts that aren't needed for every project, such as if you are doing server-based EPS handling. The important thing is to enforce as much decoupling as possible; I have been preparing for Java modularization starting with the Java 7 release.
 
-This project, being one of my simplest (at the moment), represents some steep simultaneous learning curves on my own (for GitHub, but mostly for Maven and integration of the two with Eclipse IDE), and hopefully will be quickly followed by my other libraries once I understand how to specify project dependencies.
-
 Eclipse and NetBeans related support files are included as they are generic and are agnostic to the OS or to the user's system details and file system structure, so it seems helpful to post them in order to accelerate the integration of this library into a user's normal IDE project workflow and build cycle.
 
 The Javadocs are 100% compliant and complete, but I am still learning how to publish those at the hosting site that I think is part of Maven Central, as it is a bad idea to bloat a GitHub project with such files and to complicate repository changes (just as with binary files and archices). Hopefully later tonight!
 
 As a confidence boost at both ends, EpsGraphicsUtilities has a main() function that prints "Hello Maven from EpsToolkit" to the console (e.g. the one in Eclipse IDE). By running Maven's clean task, then the install task, you can quickly gain confidence that everything is integrated properly, by then running the main class and seeing the console and confirming that this library was the source of the validation message.
 
-This projects depends (lightly) on my GraphicsToolkit, so I need to do some additional testing to make sure that dependency is properly set in the Maven and GitHub support files and not just in the Eclipse files.
+This projects depends on my GraphicsToolkit library, and is marked as such in the Maven POM file.

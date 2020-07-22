@@ -7,7 +7,7 @@
   <packaging>jar</packaging>
   <name>EpsToolkit</name>
   <url>https://github.com/mhschmieder/epstoolkit</url>
-  <description>A Java AWT library for creating Encapsulated PostScript (EPS) output via a custom Graphics2D canvas.</description>
+  <description>A Java AWT based library for creating Encapsulated PostScript (EPS) output via a custom Graphics2D canvas.</description>
   <licenses>
     <license>
       <name>MIT License</name>

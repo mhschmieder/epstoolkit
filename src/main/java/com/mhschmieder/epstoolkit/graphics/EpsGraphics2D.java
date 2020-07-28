@@ -159,14 +159,14 @@ public final class EpsGraphics2D extends Graphics2D {
      * before drawing, filling, etc., is white, as EPS is usually targeted for
      * black-on-white reports, documents, and other print-designated output.
      */
-    public static final Color     BACKGROUND_COLOR_DEFAULT = Color.WHITE;
+    public static final Color     DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
     /**
      * The default foreground color for drawing, filling, etc., is black, as EPS
      * is usually targeted for black-on-white reports, documents, and other
      * print-designated output.
      */
-    public static final Color     FOREGROUND_COLOR_DEFAULT = Color.BLACK;
+    public static final Color     DEFAULT_FOREGROUND_COLOR = Color.BLACK;
 
     /**
      * The default {@link ColorMode} is set to RGB as that is the most common
@@ -317,8 +317,8 @@ public final class EpsGraphics2D extends Graphics2D {
 
         epsColorMode = ColorMode.defaultValue();
 
-        backgroundColor = BACKGROUND_COLOR_DEFAULT;
-        foregroundColor = FOREGROUND_COLOR_DEFAULT;
+        backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        foregroundColor = DEFAULT_FOREGROUND_COLOR;
 
         clipActive = false;
         clipArea = null;
@@ -328,7 +328,7 @@ public final class EpsGraphics2D extends Graphics2D {
         // Use setter methods vs. assignment statements, for the main
         // attributes that are part of the Graphics2D parent class, so that
         // these values get written to the EPS Document right away.
-        setPaint( FOREGROUND_COLOR_DEFAULT );
+        setPaint( DEFAULT_FOREGROUND_COLOR );
         setComposite( AlphaComposite.getInstance( AlphaComposite.CLEAR ) );
         setFont( Font.decode( null ) );
         setStroke( new BasicStroke() );

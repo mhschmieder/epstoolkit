@@ -295,14 +295,21 @@ public final class EpsGraphics2D extends Graphics2D {
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Default constructor. All parameters are defaulted initially, but can be
-     * changed vis setter functions before or during output generation begins.
+     * Creates a new instance of {@link EpsGraphics2D}, using nothing more than
+     * its {@link EpsDocument} owner; all other parameters are defaulted
+     * initially, but can be changed vis setter functions before or during
+     * output generation begins. This is the default constructor.
      * <p>
      * Constructs a new Graphics Context that is initially empty and can be
      * drawn on like a regular {@link Graphics2D} canvas. The EPS Document is
      * written to {@link StringBuilder} as it goes, which reduces memory usage.
      * <p>
      * By default, Vectorized Text Mode is turned on (via Rendering Hints).
+     * <p>
+     * This constructor in general should not be invoked directly by client code
+     * unless they have replaced the {@link EpsDocument} wrapper with something
+     * of their own; normally an {@link EpsGraphics2D} instance is requested by
+     * invoking the {@link EpsDocument#getGraphics2D()} method.
      *
      * @param documentOwner
      *            The {@link EpsDocument} that owns this Graphics Context
@@ -310,32 +317,111 @@ public final class EpsGraphics2D extends Graphics2D {
      * @since 1.0
      */
     public EpsGraphics2D( final EpsDocument documentOwner ) {
+        // As the superclass is abstract and has no data, there is no need to
+        // call the superclass constructor here.
+        this( documentOwner,
+              new RenderingHints( EpsRenderingHints.KEY_TEXT_RENDERING_MODE,
+                                  EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_VECTOR ),
+              ColorMode.defaultValue(),
+              DEFAULT_BACKGROUND_COLOR,
+              DEFAULT_FOREGROUND_COLOR,
+              false,
+              null,
+              new AffineTransform(),
+              new AffineTransform(),
+              DEFAULT_FOREGROUND_COLOR,
+              AlphaComposite.getInstance( AlphaComposite.CLEAR ),
+              Font.decode( null ),
+              new BasicStroke() );
+    }
+
+    /**
+     * Creates a new instance of {@link EpsGraphics2D}, using all available
+     * parameters. This is the fully qualified constructor, and is primarily
+     * intended for internal use, to avoid divergence of tactics at
+     * initialization time when constructing an {@link EpsGraphics2D} using
+     * different approaches (such as a Copy Constructor).
+     * <p>
+     * Constructs a new Graphics Context that is initially empty and can be
+     * drawn on like a regular {@link Graphics2D} canvas. The EPS Document is
+     * written to {@link StringBuilder} as it goes, which reduces memory usage.
+     * <p>
+     * This constructor in general should not be invoked directly by client code
+     * unless they have replaced the {@link EpsDocument} wrapper with something
+     * of their own; normally an {@link EpsGraphics2D} instance is requested by
+     * invoking the {@link EpsDocument#getGraphics2D()} method.
+     *
+     * @param documentOwner
+     *            The {@link EpsDocument} that owns this Graphics Context
+     * @param initialRenderingHints
+     *            The initial {@link RenderingHints} to use for text
+     * @param initialColorMode
+     *            The initial {@link ColorMode} for Color Space context
+     * @param initialBackground
+     *            The initial {@link Color} for {@code clearRect()} calls
+     * @param initialForeground
+     *            The initial {@link Color} for drawing shapes
+     * @param clipIsActive
+     *            {@code true} if a clipping area is initially active
+     * @param initialClipArea
+     *            The initial {@link Area} to use for clipping. if active
+     * @param initialClipTransform
+     *            The initial {@link AffineTransform} to apply to clipping, if
+     *            active
+     * @param initialPageTransform
+     *            The initial {@link AffineTransform} to apply to the
+     *            screen-to-page mapping
+     * @param initialPaint
+     *            The initial {@link Paint} to use for most graphics operations
+     * @param initialComposite
+     *            The initial value of the {@link Composite}; not used here
+     * @param initialFont
+     *            The initial {@link Font} to use for text rendering
+     * @param initialStroke
+     *            The initial {@link Stroke} to use for stroke operations
+     *
+     * @since 1.0
+     */
+    protected EpsGraphics2D( final EpsDocument documentOwner,
+                             final RenderingHints initialRenderingHints,
+                             final ColorMode initialColorMode,
+                             final Color initialBackground,
+                             final Color initialForeground,
+                             final boolean clipIsActive,
+                             final Area initialClipArea,
+                             final AffineTransform initialClipTransform,
+                             final AffineTransform initialPageTransform,
+                             final Paint initialPaint,
+                             final Composite initialComposite,
+                             final Font initialFont,
+                             final Stroke initialStroke ) {
         epsDocument = documentOwner;
 
-        renderingHints = new RenderingHints( EpsRenderingHints.KEY_TEXT_RENDERING_MODE,
-                                             EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_VECTOR );
+        renderingHints = initialRenderingHints;
 
-        epsColorMode = ColorMode.defaultValue();
+        epsColorMode = initialColorMode;
 
-        backgroundColor = DEFAULT_BACKGROUND_COLOR;
-        foregroundColor = DEFAULT_FOREGROUND_COLOR;
+        backgroundColor = initialBackground;
+        foregroundColor = initialForeground;
 
-        clipActive = false;
-        clipArea = null;
-        clipTransform = new AffineTransform();
-        epsTransform = new AffineTransform();
+        clipActive = clipIsActive;
+        clipArea = initialClipArea;
+        clipTransform = initialClipTransform;
+        epsTransform = initialPageTransform;
 
         // Use setter methods vs. assignment statements, for the main
         // attributes that are part of the Graphics2D parent class, so that
         // these values get written to the EPS Document right away.
-        setPaint( DEFAULT_FOREGROUND_COLOR );
-        setComposite( AlphaComposite.getInstance( AlphaComposite.CLEAR ) );
-        setFont( Font.decode( null ) );
-        setStroke( new BasicStroke() );
+        setPaint( initialPaint );
+        setComposite( initialComposite );
+        setFont( initialFont );
+        setStroke( initialStroke );
     }
 
     /**
-     * Copy constructor.
+     * Creates a new instance of {@link EpsGraphics2D}, using a valid existing
+     * {@link EpsGraphics2D} instance to gather the full lust of parameters.
+     * This is the copy constructor.
      * <p>
      * Constructs a new {@link EpsGraphics2D} instance that is a copy of the
      * supplied {@link EpsGraphics2D} Graphics Context and points to the same
@@ -348,28 +434,21 @@ public final class EpsGraphics2D extends Graphics2D {
      * @since 1.0
      */
     protected EpsGraphics2D( final EpsGraphics2D epsGraphics ) {
-        epsDocument = epsGraphics.epsDocument;
-
-        // For the Rendering Hints, we are careful to make a new cloned copy.
-        renderingHints = epsGraphics.getRenderingHints();
-
-        epsColorMode = epsGraphics.epsColorMode;
-
-        backgroundColor = epsGraphics.backgroundColor;
-        foregroundColor = epsGraphics.foregroundColor;
-
-        clipActive = epsGraphics.clipActive;
-        clipArea = epsGraphics.clipArea;
-        clipTransform = ( AffineTransform ) epsGraphics.clipTransform.clone();
-        epsTransform = ( AffineTransform ) epsGraphics.epsTransform.clone();
-
-        // Use setter methods vs. assignment statements, for the main
-        // attributes that are part of the Graphics2D parent class, so that
-        // these values get written to the EPS Document right away.
-        setPaint( epsGraphics.paint );
-        setComposite( epsGraphics.composite );
-        setFont( epsGraphics.font );
-        setStroke( epsGraphics.stroke );
+        // For the Rendering Hints, we are careful to make a new cloned copy,
+        // and likewise for all of the Affine Transforms.
+        this( epsGraphics.epsDocument,
+              epsGraphics.getRenderingHints(),
+              epsGraphics.epsColorMode,
+              epsGraphics.backgroundColor,
+              epsGraphics.foregroundColor,
+              epsGraphics.clipActive,
+              epsGraphics.clipArea,
+              ( AffineTransform ) epsGraphics.clipTransform.clone(),
+              ( AffineTransform ) epsGraphics.epsTransform.clone(),
+              epsGraphics.paint,
+              epsGraphics.composite,
+              epsGraphics.font,
+              epsGraphics.stroke );
     }
 
     ////////////////// Accessor methods for private data /////////////////////

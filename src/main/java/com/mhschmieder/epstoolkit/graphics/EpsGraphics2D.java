@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -1412,7 +1412,7 @@ public final class EpsGraphics2D extends Graphics2D {
      */
     @Override
     public void rotate( final double theta ) {
-        rotate( theta, 0d, 0d );
+        rotate( theta, 0.0d, 0.0d );
     }
 
     /**

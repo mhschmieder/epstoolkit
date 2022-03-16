@@ -72,11 +72,11 @@ import java.util.Map;
 import com.mhschmieder.epstoolkit.EpsDocument;
 import com.mhschmieder.epstoolkit.operators.EpsGraphicsOperators;
 import com.mhschmieder.epstoolkit.operators.EpsImageOperators;
+import com.mhschmieder.graphicstoolkit.DrawMode;
+import com.mhschmieder.graphicstoolkit.GraphicsUtilities;
 import com.mhschmieder.graphicstoolkit.color.ColorMode;
 import com.mhschmieder.graphicstoolkit.font.FontUtilities;
 import com.mhschmieder.graphicstoolkit.geometry.GeometryUtilities;
-import com.mhschmieder.graphicstoolkit.graphics.DrawMode;
-import com.mhschmieder.graphicstoolkit.graphics.GraphicsUtilities;
 import com.mhschmieder.graphicstoolkit.image.ImageConversionUtilities;
 import com.mhschmieder.graphicstoolkit.text.TextUtilities;
 

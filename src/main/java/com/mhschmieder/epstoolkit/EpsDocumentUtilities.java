@@ -32,7 +32,7 @@ package com.mhschmieder.epstoolkit;
 
 import com.mhschmieder.epstoolkit.dsc.EpsDscUtilities;
 import com.mhschmieder.epstoolkit.operators.EpsPageOperators;
-import com.mhschmieder.graphicstoolkit.graphics.GraphicsUtilities;
+import com.mhschmieder.graphicstoolkit.GraphicsUtilities;
 
 /**
  * {@code EpsDocumentUtilities} is a utility class for methods related to EPS

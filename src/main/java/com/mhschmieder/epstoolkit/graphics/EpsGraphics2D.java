@@ -78,7 +78,7 @@ import com.mhschmieder.graphicstoolkit.color.ColorMode;
 import com.mhschmieder.graphicstoolkit.font.FontUtilities;
 import com.mhschmieder.graphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.graphicstoolkit.image.ImageConversionUtilities;
-import com.mhschmieder.graphicstoolkit.text.TextUtilities;
+import com.mhschmieder.graphicstoolkit.text.AttributedTextUtilities;
 
 /**
  * {@code EpsGraphics2D} is a graphics wrapper class that is suitable for
@@ -1362,7 +1362,7 @@ public final class EpsGraphics2D extends Graphics2D {
                             final float x,
                             final float y ) {
         final FontRenderContext fontRenderContext = getFontRenderContext();
-        final Shape shape = TextUtilities
+        final Shape shape = AttributedTextUtilities
                 .getRenderedText( attributedCharacterIterator, fontRenderContext, x, y );
         fill( shape );
     }

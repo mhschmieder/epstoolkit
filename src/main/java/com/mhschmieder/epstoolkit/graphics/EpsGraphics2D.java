@@ -76,8 +76,8 @@ import com.mhschmieder.graphicstoolkit.DrawMode;
 import com.mhschmieder.graphicstoolkit.GraphicsUtilities;
 import com.mhschmieder.graphicstoolkit.color.ColorMode;
 import com.mhschmieder.graphicstoolkit.font.FontUtilities;
-import com.mhschmieder.graphicstoolkit.geometry.GeometryUtilities;
 import com.mhschmieder.graphicstoolkit.image.ImageConversionUtilities;
+import com.mhschmieder.graphicstoolkit.shape.ShapeUtilities;
 import com.mhschmieder.graphicstoolkit.text.AttributedTextUtilities;
 
 /**
@@ -537,7 +537,7 @@ public final class EpsGraphics2D extends Graphics2D {
     public void drawPolyline( final float[] xPoints,
                               final float[] yPoints,
                               final int numberOfPoints ) {
-        final GeneralPath path = GeometryUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
+        final GeneralPath path = ShapeUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
         draw( path );
     }
 
@@ -566,7 +566,7 @@ public final class EpsGraphics2D extends Graphics2D {
     public void drawPolyline( final double[] xPoints,
                               final double[] yPoints,
                               final int numberOfPoints ) {
-        final GeneralPath path = GeometryUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
+        final GeneralPath path = ShapeUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
         draw( path );
     }
 
@@ -1990,7 +1990,7 @@ public final class EpsGraphics2D extends Graphics2D {
      */
     @Override
     public void drawPolyline( final int[] xPoints, final int[] yPoints, final int numberOfPoints ) {
-        final GeneralPath path = GeometryUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
+        final GeneralPath path = ShapeUtilities.makePolyline( xPoints, yPoints, numberOfPoints );
         draw( path );
     }
 

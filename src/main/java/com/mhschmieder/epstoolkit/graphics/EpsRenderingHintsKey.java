@@ -67,13 +67,19 @@ public class EpsRenderingHintsKey extends RenderingHints.Key {
      */
     @Override
     public boolean isCompatibleValue( final Object val ) {
+        boolean compatibleValue = false;
+        
         switch ( intKey() ) {
         case 0:
-            return ( val == null ) || EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_TEXT.equals( val )
-                    || EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_VECTOR.equals( val );
+            compatibleValue = ( val == null )
+                || EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_TEXT.equals( val )
+                || EpsRenderingHints.VALUE_TEXT_RENDERING_MODE_VECTOR.equals( val );
+            break;
         default:
             throw new RuntimeException( "Unsupported Rendering Hint Key" ); //$NON-NLS-1$
         }
+        
+        return compatibleValue;
     }
 
 }

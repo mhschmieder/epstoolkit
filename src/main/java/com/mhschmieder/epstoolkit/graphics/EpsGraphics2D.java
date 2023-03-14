@@ -69,6 +69,8 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.epstoolkit.EpsDocument;
 import com.mhschmieder.epstoolkit.operators.EpsGraphicsOperators;
 import com.mhschmieder.epstoolkit.operators.EpsImageOperators;
@@ -1731,10 +1733,10 @@ public final class EpsGraphics2D extends Graphics2D {
         // Although the Rectangle should be integer based, it is safer to assume
         // otherwise and to round to the nearest integer just in case.
         final Rectangle clipBounds = getClipBounds();
-        rectangle.setLocation( ( int ) Math.round( clipBounds.getX() ),
-                               ( int ) Math.round( clipBounds.getY() ) );
-        rectangle.setSize( ( int ) Math.round( clipBounds.getWidth() ),
-                           ( int ) Math.round( clipBounds.getHeight() ) );
+        rectangle.setLocation( ( int ) FastMath.round( clipBounds.getX() ),
+                               ( int ) FastMath.round( clipBounds.getY() ) );
+        rectangle.setSize( ( int ) FastMath.round( clipBounds.getWidth() ),
+                           ( int ) FastMath.round( clipBounds.getHeight() ) );
 
         return rectangle;
     }

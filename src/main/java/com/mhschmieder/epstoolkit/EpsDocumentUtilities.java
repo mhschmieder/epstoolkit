@@ -30,6 +30,8 @@
  */
 package com.mhschmieder.epstoolkit;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.epstoolkit.dsc.EpsDscUtilities;
 import com.mhschmieder.epstoolkit.operators.EpsPageOperators;
 import com.mhschmieder.graphicstoolkit.GraphicsUtilities;
@@ -116,8 +118,8 @@ public final class EpsDocumentUtilities {
         // DSC headers only support integers, so we round up the bounds.
         final int boundingBoxMinX = 0;
         final int boundingBoxMinY = 0;
-        final int boundingBoxMaxX = ( int ) Math.ceil( pageWidth );
-        final int boundingBoxMaxY = ( int ) Math.ceil( pageHeight );
+        final int boundingBoxMaxX = ( int ) FastMath.ceil( pageWidth );
+        final int boundingBoxMaxY = ( int ) FastMath.ceil( pageHeight );
         EpsDscUtilities.writeDscHeader( stringBuilder,
                                         title,
                                         creator,
@@ -127,8 +129,8 @@ public final class EpsDocumentUtilities {
                                         boundingBoxMaxY );
 
         // Calculate the source dimensions from the original mix/max values.
-        final float sourceWidth = Math.abs( maxX - minX );
-        final float sourceHeight = Math.abs( maxY - minY );
+        final float sourceWidth = FastMath.abs( maxX - minX );
+        final float sourceHeight = FastMath.abs( maxY - minY );
 
         // Calculate the scale factor of the source layout to the target page,
         // in such a way that neither dimension is clipped nor distorted. This

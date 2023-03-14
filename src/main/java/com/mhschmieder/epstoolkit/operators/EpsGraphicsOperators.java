@@ -39,6 +39,8 @@ import java.awt.geom.PathIterator;
 import java.text.AttributedCharacterIterator;
 import java.text.CharacterIterator;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.epstoolkit.EpsWriter;
 import com.mhschmieder.graphicstoolkit.color.ColorConstants;
 import com.mhschmieder.graphicstoolkit.color.ColorMode;
@@ -513,7 +515,7 @@ public final class EpsGraphicsOperators {
         lineWidthOperator.append( " setlinewidth" );
         epsWriter.append( lineWidthOperator.toString() );
 
-        final float miterLimit = Math.max( 1f, stroke.getMiterLimit() );
+        final float miterLimit = FastMath.max( 1f, stroke.getMiterLimit() );
         final StringBuilder miterLimitOperator = new StringBuilder();
         miterLimitOperator.append( miterLimit );
         miterLimitOperator.append( " setmiterlimit" );
